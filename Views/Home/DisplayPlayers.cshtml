@@ -1,0 +1,64 @@
+﻿@model List<Player>
+<div class='container'>
+    <div class='row mt-5'>
+        <table class='table table-condensed table-striped col-8'>
+            <thead class='thead thead-dark'>
+                <th class='col-2' id="SortPName">Player Name</th>
+                <th class='col-1' id="SortAge">Age</th>
+                <th class='col-1' id="SortTName">Team</th>
+                <th class='col-1' id="SortPos">Position</th>
+                <th class='col-2' id="SortFPoints">NFL Fantasy Pts</th>
+                <th class='col-1' id="SortRank">Rank</th>
+            </thead>
+            <tbody>
+                @{
+                    foreach(var player in @Model){
+                        <tr>
+                            <td class='col-2'>@player.Name</td>
+                            <td class='col-1'>@player.Age</td>
+                            <td class='col-1'>@player.TeamName</td>
+                            <td class='col-1'>@player.Position</td>
+                            <td class='col-2'>@player.FPointsNFL</td>
+                            <td class='col-1'>@player.Rank</td>
+                        </tr>
+                    }
+                }
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#SortPName').click(function(){
+            $.ajax({
+                type: 'POST',
+                url: 'PageName.aspx/GetDate',
+                data: '{ }',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function(response) {
+                    
+                },
+                failure: function (response) {
+                    alert(response.d)
+                }
+            })
+        });
+        $('#SortAge').click(function(){
+            $('#image2').hide();
+        });
+        $('#SortTName').click(function(){
+            $('#image3').hide();
+        });
+        $('#SortPos').click(function(){
+            $('#image4').hide();
+        });
+        $('#SortFPoints').click(function(){
+            $('#image5').hide();
+        });
+        $('SortRank').click(function(){
+            $('#image5').hide();
+        });
+    });
+</script>
