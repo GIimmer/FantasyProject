@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.Services;
-using System.Web.Script.Serialization;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using FantasyProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace FantasyProject.Controllers
 {
@@ -19,18 +20,30 @@ namespace FantasyProject.Controllers
             _context = context;
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+
+        [HttpGet]
+        public PartialViewResult AllOfTeam(string team)
         {
-            Ajax.Utility.RegisterTypeForAjax
+            System.Console.WriteLine(team);
+            List<Player> ListPlayers = _context.Players.Where(p => p.TeamName == team).ToList();
+            System.Console.WriteLine(ListPlayers);
+            return PartialView("~/Views/Ajax/PlayerData.cshtml", ListPlayers);
         }
 
-        [HttpPost("/Sort/PlayerName")]
-        public PartialViewResult SortPlayerName()
+        [HttpGet]
+        public PartialViewResult AllOfPos(string position)
         {
-            List<Player> ListPlayers = _context.Players.Where(p => p.TeamName == "SEA").OrderBy(p => p.Name).ToList();
-            var serializer = new JavaScriptSerializer();
-            var serializedResult = serializer.Serialize(ListPlayers);
-            return View("DisplayPlayers", serializedResult);
+            System.Console.WriteLine(position);
+            System.Console.WriteLine("I'm here!");
+            List<Player> ListPlayers = _context.Players.Where(p => p.Position == position).ToList();
+            return PartialView("~/Views/Ajax/PlayerData.cshtml", ListPlayers);
+        }
+
+        [HttpGet]
+        public PartialViewResult AllOfAvail()
+        {
+            List<Player> ListPlayers = _context.Players.Where(p => p.FantasyTeamId == -1).ToList();
+            return PartialView("~/Views/Ajax/PlayerData.cshtml", ListPlayers);
         }
     }
 }

@@ -7,5 +7,6 @@ namespace FantasyProject.Models
         public FantasyProjectContext(DbContextOptions<FantasyProjectContext> options) : base(options) { }
         public DbSet<Player> Players { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<FantasyTeam> FantasyTeams { get; set; }
     }
 }

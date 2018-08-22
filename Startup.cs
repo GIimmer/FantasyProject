@@ -45,7 +45,13 @@ namespace FantasyProject
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}"
+                );
+                routes.MapRoute(
+                "Ajax",                                           // Route name
+                "Ajax/{action}",                            // URL with parameters
+                new { controller = "Ajax", action = "Entry" }  // Parameter defaults
+            );
             });
         }
     }

@@ -37,6 +37,8 @@ namespace FantasyProject.Models
         public double PosRank { get; set; }
         public double OvRank { get; set; }
         public int TeamId { get; set; }
+        public int FantasyTeamId { get; set; }
         public Team Team { get; set; }
+        public FantasyTeam FantasyTeam { get; set; }
     }
 }

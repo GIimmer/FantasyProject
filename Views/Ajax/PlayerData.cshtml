@@ -1,0 +1,100 @@
+@model List<Player>
+        <div>
+            <select class='form-control col-2 offset-1 d-inline' id='GetByPos'>
+                <option value='QB' class='GetByPos'>Quarterback</option>
+                <option value='RB' class='GetByPos'>Running Back</option>
+                <option value='TE' class='GetByPos'>Tight End</option>
+                <option value='WR' class='GetByPos'>Wide Receiver</option>
+            </select>
+            <select class='form-control col-2 offset-1 d-inline' id='GetByTeam'>
+                <option value='ARI' class='GetByTeam'>Arizona Cardinals</option>
+                <option value='ATL' class='GetByTeam'>Atlanta Falcons</option>
+                <option value='BAL' class='GetByTeam'>Baltimore Ravens</option>
+                <option value='BUF' class='GetByTeam'>Buffalo Bills</option>
+                <option value='CAR' class='GetByTeam'>Carolina Panthers</option>
+                <option value='CHI' class='GetByTeam'>Chicago Bears</option>
+                <option value='CIN' class='GetByTeam'>Cincinatti Bengals</option>
+                <option value='CLE' class='GetByTeam'>Cleveland Browns</option>
+                <option value='DAL' class='GetByTeam'>Dallas Cowboys</option>
+                <option value='DEN' class='GetByTeam'>Denver Broncos</option>
+                <option value='DET' class='GetByTeam'>Detroit Lions</option>
+                <option value='GNB' class='GetByTeam'>Greenbay Packers</option>
+                <option value='HOU' class='GetByTeam'>Houston Texans</option>
+                <option value='IND' class='GetByTeam'>Indianapolis Colts</option>
+                <option value='JAX' class='GetByTeam'>Jacksonville Jaguars</option>
+                <option value='KAN' class='GetByTeam'>Kansas City Chiefs</option>
+                <option value='LAC' class='GetByTeam'>Los Angeles Chargers</option>
+                <option value='LAR' class='GetByTeam'>Los Angeles Rams</option>
+                <option value='MIA' class='GetByTeam'>Miami Dolphins</option>
+                <option value='MIN' class='GetByTeam'>Minnesota Dolphins</option>
+                <option value='NOR' class='GetByTeam'>New Orleans Saints</option>
+                <option value='NEW' class='GetByTeam'>New England Patriots</option>
+                <option value='NYG' class='GetByTeam'>New York Giants</option>
+                <option value='NYJ' class='GetByTeam'>New York Jets</option>
+                <option value='OAK' class='GetByTeam'>Oakland Raiders</option>
+                <option value='PHI' class='GetByTeam'>Philadelphia Eagles</option>
+                <option value='PIT' class='GetByTeam'>Pittsburgh Steelers</option>
+                <option value='SEA' class='GetByTeam'>Seattle Seahawks</option>
+                <option value='SFO' class='GetByTeam'>San Fransisco 49ers</option>
+                <option value='TAM' class='GetByTeam'>Tampa Bay Buccaneers</option>
+                <option value='TEN' class='GetByTeam'>Tennessee Titans</option>
+                <option value='WAS' class='GetByTeam'>Washington Redskins</option>
+                <option value='2TM' class='GetByTeam'>Multiple Teams</option>
+            </select>
+            <select class='form-control col-2 offset-1 d-inline'>
+                <option value='false' class='GetByAvail'>Taken</option>
+                <option value='true'  class='GetByAvail'>Available</option>
+            </select>
+        </div>
+        <table class='table table-striped mt-4' style="padding:2px">
+            <thead class='thead thead-dark'>
+                <th class='col-2' id="SortPName">Player Name</th>
+                <th class='col-1' id="SortAge">Age</th>
+                <th class='col-1' id="SortTName">Team</th>
+                <th class='col-1' id="SortPos">Position</th>
+                <th class='col-2' id="SortFPoints">NFL Fantasy Pts</th>
+                <th class='col-1' id="SortRank">Rank</th>
+                <th class='col-1' id='selectPlayer'>Draft Player</th>
+            </thead>
+            <tbody>
+            @{
+                foreach(var player in @Model){
+                    <tr>
+                        <td class='col-2'>@player.Name</td>
+                        <td class='col-1'>@player.Age</td>
+                        <td class='col-1'>@player.TeamName</td>
+                        <td class='col-1'>@player.Position</td>
+                        <td class='col-2'>@player.FPointsNFL</td>
+                        <td class='col-1'>@player.Rank</td>
+                        <td class='col-1'><button class='select btn btn-primary btn-sm' data-name="Dan" data-player='@player.Name'>Draft</button></td>             
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function(){
+                $('.select').click(function(){
+                    console.log($(this).attr("data-player"));
+                    console.log($(this).attr("data-name"));
+                });
+                $('#SortPName').click(function(){
+        
+                });
+                $('#SortAge').click(function(){
+        
+                });
+                $('#SortTName').click(function(){
+        
+                });
+                $('#SortPos').click(function(){
+        
+                });
+                $('#SortFPoints').click(function(){
+        
+                });
+                $('SortRank').click(function(){
+        
+                });
+            });
+        </script>

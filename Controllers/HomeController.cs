@@ -151,6 +151,7 @@ namespace FantasyProject.Controllers
                         FPointsVBD = Result[23],
                         PosRank = Result[24],
                         OvRank = Result[25],
+                        FantasyTeamId = -1,
                     };
                     if(_context.Players.Where(p => p.Name == PlayerName).FirstOrDefault() != null){
                         PlayerName += '2';

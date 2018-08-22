@@ -1,64 +1,67 @@
-﻿@model List<Player>
-<div class='container'>
+﻿<div class='container'>
     <div class='row mt-5'>
-        <table class='table table-condensed table-striped col-8'>
-            <thead class='thead thead-dark'>
-                <th class='col-2' id="SortPName">Player Name</th>
-                <th class='col-1' id="SortAge">Age</th>
-                <th class='col-1' id="SortTName">Team</th>
-                <th class='col-1' id="SortPos">Position</th>
-                <th class='col-2' id="SortFPoints">NFL Fantasy Pts</th>
-                <th class='col-1' id="SortRank">Rank</th>
-            </thead>
-            <tbody>
-                @{
-                    foreach(var player in @Model){
-                        <tr>
-                            <td class='col-2'>@player.Name</td>
-                            <td class='col-1'>@player.Age</td>
-                            <td class='col-1'>@player.TeamName</td>
-                            <td class='col-1'>@player.Position</td>
-                            <td class='col-2'>@player.FPointsNFL</td>
-                            <td class='col-1'>@player.Rank</td>
-                        </tr>
-                    }
-                }
-                <tr></tr>
-            </tbody>
-        </table>
+        <div class='col-12'>
+            <div id="tData">
+                @await Html.PartialAsync("~/Views/Ajax/PlayerData.cshtml")
+            </div>
+        </div>
     </div>
 </div>
 <script>
-    $(document).ready(function(){
-        $('#SortPName').click(function(){
+    function BindControlEvents(){
+        $(document).on("click", ".GetByTeam", function(){
+            var enterData = $(this).val();
+            console.log("I'm here!");
+            console.log(enterData);
             $.ajax({
-                type: 'POST',
-                url: 'PageName.aspx/GetDate',
-                data: '{ }',
+                type: 'GET',
+                url: '/Ajax/AllOfTeam',
+                cache: false,
                 contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function(response) {
-                    
-                },
-                failure: function (response) {
-                    alert(response.d)
-                }
+                data: { 'team': enterData },
             })
+            .done(function(partialViewResult) {
+                $("#tData").html(partialViewResult)
+            });
         });
-        $('#SortAge').click(function(){
-            $('#image2').hide();
+        $(document).on("click", ".GetByPos", function(){
+            var enterData = $(this).val();
+            console.log("I'm here!");
+            console.log(enterData);
+            $.ajax({
+                type: 'GET',
+                url: '/Ajax/AllOfPos',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                data: { 'position': enterData },
+            })
+            .done(function(partialViewResult) {
+                console.log("Here!!!")
+                $("#tData").html(partialViewResult)
+            });
         });
-        $('#SortTName').click(function(){
-            $('#image3').hide();
+        $(document).on("click", ".GetByAvail", function(){
+            var enterData = $(this).val();
+            console.log("I'm here!");
+            console.log(enterData);
+            $.ajax({
+                type: 'GET',
+                url: '/Ajax/AllOfAvail',
+                cache: false,
+                contentType: 'application/json; charset=utf-8',
+                data: { 'avail': enterData },
+            })
+            .done(function(partialViewResult) {
+                $("#tData").html(partialViewResult)
+            });
         });
-        $('#SortPos').click(function(){
-            $('#image4').hide();
-        });
-        $('#SortFPoints').click(function(){
-            $('#image5').hide();
-        });
-        $('SortRank').click(function(){
-            $('#image5').hide();
-        });
+    }
+    $(document).ready(function(){
+        BindControlEvents();
     });
+    var prm = Sys.WebForms.PageRequestManager.getInstance(); 
+
+    prm.add_endRequest(function() { 
+        BindControlEvents();
+    }); 
 </script>
